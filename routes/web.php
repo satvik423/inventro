@@ -28,3 +28,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.show');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');

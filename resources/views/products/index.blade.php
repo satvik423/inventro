@@ -3,12 +3,45 @@
     <div class="table-container">
         <table class="productTable">
             <h2>Product List</h2>
+            <div class="search-container">
+                <!-- Search Form -->
+                <form action="{{ route('products.show') }}" method="GET">
+                    <select id="category" name="category" class="form-control">
+                        <option value=""  selected>All Category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <input type="text" class="search-input" placeholder="Search..." name="search" value="{{ request('search') }}">
+
+                    <button type="submit" class="search-button">🔍</button>
+
+                    <button type="submit" name="sort" value="asc" class="btn-submit">Sort Asc ↑</button>
+                    <button type="submit" name="sort" value="desc" class="btn-submit">Sort Desc ↓</button>
+                </form>
+
+
+                <!-- Export Form (Separate) -->
+                @if ($role == 'admin')
+                <form action="{{ route('products.export') }}" method="GET">
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                    <button type="submit" class="btn-submit">Excel</button>
+                    <button type="submit" name="export" value="pdf" class="btn-submit">PDF</button>
+                </form>
+                @endif
+            </div>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    @if ($role == 'admin')
                     <th>Stock</th>
+                    @endif
                     <th>Category</th> 
                 </tr>
             </thead>
@@ -18,7 +51,9 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
                     <td>₹{{ number_format($product->price, 2) }}</td>
+                    @if ($role == 'admin')
                     <td>{{ $product->stock }}</td>
+                    @endif
                     <td>{{ $product->category->name ?? 'No Category' }}</td>
                 </tr>
                 @endforeach
