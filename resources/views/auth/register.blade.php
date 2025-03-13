@@ -1,5 +1,5 @@
 <head>
-    <title>Login</title>
+    <title>Registeration</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 <form action="{{ route('register') }}" method="POST">

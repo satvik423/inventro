@@ -1,3 +1,10 @@
+<title>
+    @if ($role == 'admin')
+        Inventro - Admin
+    @else
+        Inventro - Products
+    @endif
+</title>
 <x-navbar>
 <div class="container">
     <div class="table-container">
