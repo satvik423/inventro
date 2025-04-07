@@ -5,11 +5,22 @@
         Inventro - Products
     @endif
 </title>
+    <link rel="stylesheet" href="{{ asset('css/productPage.css') }}">
 <x-navbar>
 <div class="container">
     <div class="table-container">
         <table class="productTable">
             <h2>Product List</h2>
+            @if (session('success'))
+                <div id="flash-message" class="success">
+                    {{ session('success') }}
+                </div>
+            @elseif (session('error'))
+                <div id="flash-message" class="error">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="search-container">
                 <!-- Search Form -->
                 <form action="{{ route('products.show') }}" method="GET">
@@ -46,10 +57,11 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>Category</th> 
                     @if ($role == 'admin')
                     <th>Stock</th>
                     @endif
-                    <th>Category</th> 
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,10 +70,30 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
                     <td>₹{{ number_format($product->price, 2) }}</td>
-                    @if ($role == 'admin')
-                    <td>{{ $product->stock }}</td>
-                    @endif
+
                     <td>{{ $product->category->name ?? 'No Category' }}</td>
+                    @if ($role == 'user')
+                    <td>
+                        @if(in_array($product->id, $inCartProductIds))
+                            <button class="btn-disabled" >In Cart</button>
+                        @else
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn-submit">Add to Cart</button>
+                            </form>
+                        @endif
+                    </td>
+                    @endif
+                    @if ($role == 'admin')
+                        <td>{{ $product->stock }}</td>
+                        <td>
+                            <form action="{{ route('products.remove', $product->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-submit">Delete</button>
+                            </form>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>
@@ -71,40 +103,7 @@
         </div>
     </div>
     @if ($role == 'admin')
-            <div class="create-container">
-        <h2>Add New Product</h2>
-
-        <form action="{{ route('products.store') }}" method="POST">
-            @csrf
-
-            <div class="form-group">
-                <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="price">Price (₹)</label>
-                <input type="number" id="price" name="price" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="stock">Stock Quantity</label>
-                <input type="number" id="stock" name="stock" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category" name="category_id" class="form-control" required>
-                    <option value="" disabled selected>Select Category</option>
-                    @foreach($products as $product)
-                        <option value="{{ $product->category_id }}">{{ $product->category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <button type="submit" class="btn-submit">Add Product</button>
-        </form>
-    </div>
+          @include('products.create')
     @endif
 
 </div>

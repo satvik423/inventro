@@ -7,7 +7,7 @@
 .table-container {
     flex-shrink: 0;
     width: auto;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     text-align: center;
 }
 
@@ -56,6 +56,7 @@
     padding: 10px;
     font-size: 15px;
     color: #555;
+    max-width: 500px;
 }
 
 /* Last Row Border Removal */
@@ -183,4 +184,33 @@
 
 .search-button i {
     font-size: 16px;
+}
+
+#flash-message {
+    padding: 0.25rem;
+    text-align: center;
+    border-radius: 0.25rem;
+    font-weight: bold;
+}
+
+#flash-message.success {
+    background-color: #d1fae5;
+    color: #10b981;
+}
+
+#flash-message.error {
+    background-color: #fee2e2;
+    color: #e53e3e;
+}
+
+.btn-disabled {
+    background-color: #e53e3e;
+    color: #a0aec0;
+    cursor: not-allowed;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
 }

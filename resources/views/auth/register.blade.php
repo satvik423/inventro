@@ -1,6 +1,8 @@
 <head>
     <title>Registeration</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+
 </head>
 <form action="{{ route('register') }}" method="POST">
     @csrf
