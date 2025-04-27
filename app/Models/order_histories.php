@@ -14,4 +14,13 @@ class order_histories extends Model
         'quantity',
         'status',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(orders::class, 'order_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

@@ -5,6 +5,9 @@
         Inventro - Products
     @endif
 </title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="{{ asset('css/productPage.css') }}">
 <x-navbar>
 <div class="container">
@@ -51,6 +54,16 @@
                     <button type="submit" name="export" value="pdf" class="btn-submit">PDF</button>
                 </form>
                 @endif
+                <!-- Bell Icon for Notifications -->
+                <div id="notification-bell" class="notification-wrapper">
+                    <i class="fa fa-bell"></i>
+                    <span class="notification-count" id="notification-count" style="display: none;"></span>
+
+                    <div class="notification-dropdown" id="notification-dropdown" style="display: none;">
+                        <h4>Notifications</h4>
+                        <ul id="notification-list"></ul>
+                    </div>
+                </div>
             </div>
             <thead>
                 <tr>
@@ -105,6 +118,52 @@
     @if ($role == 'admin')
           @include('products.create')
     @endif
-
 </div>
 </x-navbar>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const bell = document.getElementById("notification-bell");
+    const dropdown = document.getElementById("notification-dropdown");
+    const countSpan = document.getElementById("notification-count");
+    const list = document.getElementById("notification-list");
+
+    function fetchNotifications() {
+        fetch("{{ route('notifications.fetch') }}")
+            .then(response => response.json())
+            .then(data => {
+                list.innerHTML = '';
+                if (data.notifications.length > 0) {
+                    countSpan.innerText = data.unread_count;
+                    countSpan.style.display = 'inline-block';
+
+                    data.notifications.forEach(notification => {
+                        const li = document.createElement('li');
+                        li.textContent = notification.message;
+                        list.appendChild(li);
+                    });
+                } else {
+                    countSpan.style.display = 'none';
+                    list.innerHTML = '<li>No new notifications.</li>';
+                }
+            });
+    }
+
+    bell.addEventListener("click", () => {
+        // Toggle dropdown visibility
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+
+        // Call backend to mark as read
+        fetch("{{ route('notifications.markAllAsRead') }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        }).then(() => {
+            countSpan.style.display = 'none';
+        });
+    });
+
+    fetchNotifications();
+    setInterval(fetchNotifications, 30000); // Poll every 30 seconds
+});
+</script>

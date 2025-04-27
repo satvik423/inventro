@@ -214,3 +214,82 @@
     border: none;
     border-radius: 5px;
 }
+
+/* Notification Bell Wrapper */
+.notification-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
+}
+
+/* Bell Icon Styling */
+.notification-wrapper i.fa-bell {
+    font-size: 22px;
+    color: #007bff;
+}
+
+/* Notification Count Badge */
+.notification-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Notification Dropdown Box */
+.notification-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #fff;
+    width: 280px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    display: none;
+}
+
+/* Dropdown Header */
+.notification-dropdown h4 {
+    margin: 0;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Notification List */
+.notification-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* Each Notification Item */
+.notification-dropdown ul li {
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+/* Last Item Border Removal */
+.notification-dropdown ul li:last-child {
+    border-bottom: none;
+}

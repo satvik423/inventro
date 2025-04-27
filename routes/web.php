@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -39,4 +40,11 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
 Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.remove');
 
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.show');
+Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.remove');
+Route::post('/order/status-update/{id}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+
+Route::get('/notifications/fetch', [NotificationController::class, 'fetch'])->name('notifications.fetch');
+Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');

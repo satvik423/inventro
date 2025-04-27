@@ -15,7 +15,7 @@
             <li><a href="#">Home</a></li>
             <li><a href="{{ route("products.show") }}">Products</a></li>
             @if (auth()->user()->role == 'admin')
-                <li><a href="">Orders</a></li>
+                <li><a href="{{ route("order.index") }}">Orders</a></li>
             @else
                 <li><a href="{{ route("cart.show") }}">Cart</a></li>
             @endif

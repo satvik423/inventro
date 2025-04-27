@@ -1,0 +1,255 @@
+/* Layout */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    height: 100vh;
+}
+
+.table-container {
+    flex-shrink: 0;
+    width: auto;
+    text-align: center;
+}
+
+/* Headings */
+.table-container h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Table Styling */
+.productTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+.productTable thead {
+    background: #007bff;
+    color: white;
+}
+
+.productTable thead th {
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+/* Table Rows */
+.productTable tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s;
+}
+
+.productTable tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Table Data */
+.productTable td {
+    padding: 10px;
+    font-size: 15px;
+    color: #555;
+    max-width: 500px;
+}
+
+/* Last row fix */
+.productTable tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Buttons */
+.search-button {
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    background: #0056b3;
+}
+
+/* Delete Button Style Override */
+.search-button[style*="#dc3545"] {
+    background-color: #dc3545 !important;
+}
+
+.search-button[style*="#dc3545"]:hover {
+    background-color: #c82333 !important;
+}
+
+/* Flash Message */
+#flash-message {
+    padding: 0.25rem;
+    text-align: center;
+    border-radius: 0.25rem;
+    font-weight: bold;
+}
+
+#flash-message.success {
+    background-color: #d1fae5;
+    color: #10b981;
+}
+
+#flash-message.error {
+    background-color: #fee2e2;
+    color: #e53e3e;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+    .productTable,
+    .productTable thead,
+    .productTable tbody,
+    .productTable th,
+    .productTable td,
+    .productTable tr {
+        display: block;
+    }
+
+    .productTable thead {
+        display: none;
+    }
+
+    .productTable tr {
+        margin-bottom: 15px;
+        border-bottom: 2px solid #eee;
+    }
+
+    .productTable td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        font-size: 14px;
+    }
+
+    .productTable td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
+/* Right-side Order Detail Container */
+.detail-container {
+    flex: 1;
+    max-width: 500px;
+}
+
+.detail-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    height: auto;
+}
+
+.detail-card h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.detail-card h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    color: #555;
+}
+
+.detail-card p {
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.item-meta {
+    font-size: 14px;
+    color: #666;
+}
+
+.item-meta .status {
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* Adjust layout on smaller screens */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .detail-container {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+}
+
+.status-button {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.status-button.pending {
+    background-color: #ffc107; /* yellow */
+}
+
+.status-button.shipped {
+    background-color: #17a2b8; /* blue */
+}
+
+.status-button.delivered {
+    background-color: #28a745; /* green */
+}
+
+.status-button:hover {
+    opacity: 0.9;
+}
+
+.status-form {
+    display: inline;
+}
